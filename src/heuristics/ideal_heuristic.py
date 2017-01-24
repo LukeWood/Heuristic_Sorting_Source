@@ -6,7 +6,6 @@ def get_ideal(arr):
     _sorted = sorted(arr)
 
     for i,x in enumerate(_sorted):
-        print(i,x)
         lookup[x] = i/size
 
     def h(x):

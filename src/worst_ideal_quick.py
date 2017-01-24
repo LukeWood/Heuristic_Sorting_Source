@@ -40,10 +40,10 @@ def time_ideal_hsort(dataset):
     return results
 
 
-NUM_DATA_SETS = 100
+NUM_DATA_SETS = 1000
 
 if __name__ == "__main__":
-    d_sets = [np.random.normal(0,50,x*100) for x in range(1,NUM_DATA_SETS)]
+    d_sets = [np.random.normal(0,50,x) for x in np.arange(50,NUM_DATA_SETS,50)]
 
     nlogn_times = time_for_algo(quicksort,d_sets)
 
