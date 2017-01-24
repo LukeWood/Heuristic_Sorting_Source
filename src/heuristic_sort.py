@@ -17,11 +17,14 @@ def heuristic_sort_generator(heuristic):
 
             val = int(heuristic(x) * size)
 
+            #Base case
             if(not slots_taken[val]):
                 slots_taken[val] = True
                 _sorted[val] = x
+                #TODO:: Modify the "get next position method"
                 continue
             else:
+                #TODO::Use the get next position method w/ lookup table
                 ival = val
                 while(val < size):
                     if(not slots_taken[val]):
