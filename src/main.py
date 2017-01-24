@@ -30,9 +30,9 @@ def quicksort(array, begin=0, end=None):
 
 def time_for_algo(sorter,dataset):
     ds = copy.deepcopy(dataset)
-    return [timeit.Timer(lambda: sorter(x)).timeit(number=50) for x in ds]
+    return [timeit.Timer(lambda: sorter(copy.deepcopy(x))).timeit(number=50) for x in ds]
 
-NUM_DATA_SETS = 3
+NUM_DATA_SETS = 10
 if __name__ == "__main__":
     print("\nEntering main function.  Generating Data.")
     d_sets = [np.random.normal(0,50,x**2) for x in range(1,NUM_DATA_SETS)]
@@ -46,6 +46,6 @@ if __name__ == "__main__":
     print("Finished Timing Heuristic Sort")
 
     plt.plot([len(x) for x in d_sets],nlogn_times)
-
+    plt.plot([len(x) for x in d_sets],hsort_times)
 
     plt.show()

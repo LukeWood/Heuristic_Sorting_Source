@@ -21,7 +21,6 @@ def heuristic_sort_generator(heuristic):
                 slots_taken[val] = True
                 _sorted[val] = x
                 continue
-
             else:
                 ival = val
                 while(val < size):
@@ -31,17 +30,14 @@ def heuristic_sort_generator(heuristic):
                         break
                     val+=1
 
-                val = ival
-                if(val != size):
-                    while(val > 0):
+                if(val == size):
+                    val = ival-1
+                    while(val >= 0):
                         if(not slots_taken[val]):
                             slots_taken[val] = True
                             _sorted[val] = x
                             break
                         val-=1
-
-        print(arr)
-        print(_sorted)
         return ins_sort(_sorted)
 
     return sorter
