@@ -2,6 +2,9 @@ from __future__ import print_function
 import numpy as np
 import timeit
 import copy
+import matplotlib.pyplot as plt
+
+xrange = range
 
 #Section quicksort
 def partition(array, begin, end):
@@ -22,15 +25,17 @@ def quicksort(array, begin=0, end=None):
     quicksort(array, begin, pivot-1)
     quicksort(array, pivot+1, end)
 
+
 def time_for_algo(sorter,dataset):
     ds = copy.deepcopy(dataset)
-    return [timeit.Timer(lambda: sorter(x)).timeit(number=1) for x in dataset]
+    return [timeit.Timer(lambda: sorter(x)).timeit(number=50) for x in ds]
 
-NUM_DATA_SETS = 100
+NUM_DATA_SETS = 25
 if __name__ == "__main__":
     print("\nEntering main function.  Generating Data.")
-    d_sets = [np.random.normal(0,50,(1,x*100)) for x in range(1,NUM_DATA_SETS)]
+    d_sets = [np.random.normal(0,50,x**2) for x in range(1,NUM_DATA_SETS)]
     print("Created %d Datasets\n" % (NUM_DATA_SETS))
     print("Measuring time for O(n Log(n)) sort.")
     nlogn_times = time_for_algo(quicksort,d_sets)
-    print(nlogn_times)
+    plt.plot([len(x) for x in d_sets],nlogn_times)
+    plt.show()
