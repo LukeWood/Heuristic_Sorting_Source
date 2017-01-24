@@ -13,23 +13,35 @@ def heuristic_sort_generator(heuristic):
         slots_taken = [False] * size
         _sorted = [None] * size
 
-
         for x in arr:
-            val = int(heuristic(x))
-            stack = [val]
-            while(True):
 
-                location = stack.pop()
-                if(location < 0 or location > size):
-                    continue;
+            val = int(heuristic(x) * size)
 
-                if(not slots_taken[location]):
-                    _sorted[location] = x
-                    slots_taken[location] = True
-                    break;
-                else:
-                    stack.append(location+1)
-                    stack.append(location-1)
+            if(not slots_taken[val]):
+                slots_taken[val] = True
+                _sorted[val] = x
+                continue
+
+            else:
+                ival = val
+                while(val < size):
+                    if(not slots_taken[val]):
+                        slots_taken[val] = True
+                        _sorted[val] = x
+                        break
+                    val+=1
+
+                val = ival
+                if(val != size):
+                    while(val > 0):
+                        if(not slots_taken[val]):
+                            slots_taken[val] = True
+                            _sorted[val] = x
+                            break
+                        val-=1
+
+        print(arr)
+        print(_sorted)
         return ins_sort(_sorted)
 
     return sorter

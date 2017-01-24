@@ -4,6 +4,8 @@ import timeit
 import copy
 import matplotlib.pyplot as plt
 
+from heuristic_sort import heuristic_sort_generator
+
 xrange = range
 
 #Section quicksort
@@ -30,12 +32,20 @@ def time_for_algo(sorter,dataset):
     ds = copy.deepcopy(dataset)
     return [timeit.Timer(lambda: sorter(x)).timeit(number=50) for x in ds]
 
-NUM_DATA_SETS = 25
+NUM_DATA_SETS = 3
 if __name__ == "__main__":
     print("\nEntering main function.  Generating Data.")
     d_sets = [np.random.normal(0,50,x**2) for x in range(1,NUM_DATA_SETS)]
+
     print("Created %d Datasets\n" % (NUM_DATA_SETS))
     print("Measuring time for O(n Log(n)) sort.")
     nlogn_times = time_for_algo(quicksort,d_sets)
+    print("O(n Log(n)) times measued.")
+    print("Timing Heuristic Sort.")
+    hsort_times = time_for_algo(heuristic_sort_generator(lambda x: .5),d_sets)
+    print("Finished Timing Heuristic Sort")
+
     plt.plot([len(x) for x in d_sets],nlogn_times)
+
+
     plt.show()
