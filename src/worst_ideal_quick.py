@@ -4,12 +4,12 @@ import timeit
 import copy
 import matplotlib.pyplot as plt
 
-from heuristic_sort import heuristic_sort_generator
-from heuristics.ideal_heuristic import get_ideal
+from src.heuristic_sort import heuristic_sort_generator
+from src.heuristics.ideal_heuristic import get_ideal
 
 #Global Constants
 NUM_DATA_SETS = 1000
-OUTPUT_FILE = "../img/Proof_Of_Concept.png"
+OUTPUT_FILE = "img/Proof_Of_Concept.png"
 
 #For Compatibility w/ old versions of numpy
 xrange = range
@@ -44,7 +44,7 @@ def time_ideal_hsort(dataset):
         results.append(timeit.Timer(lambda: sorter(copy.deepcopy(x))).timeit(number=100))
     return results
 
-def main():
+def worst_quick_ideal_main():
     global OUTPUT_FILE
     global NUM_DATA_SETS
 
@@ -70,7 +70,7 @@ def main():
             print("Could not save to %s" % (OUTPUT_FILE))
             OUTPUT_FILE = input("Enter new File Name:")
 
-    OUTPUT_FILE = "../img/Ideal_vs_Quicksort.png"
+    OUTPUT_FILE = "img/Ideal_vs_Quicksort.png"
 
     plt.clf()
     plt.plot([len(x) for x in d_sets],nlogn_times, label="Quicksort")
@@ -87,5 +87,6 @@ def main():
             OUTPUT_FILE = input("Enter new File Name:")
 
     print("Figure for Best Case and Quicksort saved to %s." % (OUTPUT_FILE))
+
 if __name__ == "__main__":
-    main()
+    worst_quick_ideal_main()
