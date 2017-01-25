@@ -44,9 +44,10 @@ def time_ideal_hsort(dataset):
         results.append(timeit.Timer(lambda: sorter(copy.deepcopy(x))).timeit(number=100))
     return results
 
-
-
 def main():
+    global OUTPUT_FILE
+    global NUM_DATA_SETS
+
     d_sets = [np.random.normal(0,50,x) for x in np.arange(50,NUM_DATA_SETS,50)]
 
     nlogn_times = time_for_algo(quicksort,d_sets)
@@ -56,7 +57,23 @@ def main():
     ideal_hsort_times =  time_ideal_hsort(d_sets)
 
     plt.plot([len(x) for x in d_sets],nlogn_times, label="Quicksort")
+    plt.plot([len(x) for x in d_sets],ideal_hsort_times, label="Best Case Heuristic")
     plt.plot([len(x) for x in d_sets],worst_hsort_times, label="Worst Case Heuristic")
+    plt.ylabel('Time (ms)')
+    plt.xlabel("Number of Unsorted Elements")
+    plt.legend()
+    while(True):
+        try:
+            plt.savefig(OUTPUT_FILE)
+            break;
+        except:
+            print("Could not save to %s" % (OUTPUT_FILE))
+            OUTPUT_FILE = input("Enter new File Name:")
+
+    OUTPUT_FILE = "../img/Ideal_vs_Quicksort.png"
+
+    plt.clf()
+    plt.plot([len(x) for x in d_sets],nlogn_times, label="Quicksort")
     plt.plot([len(x) for x in d_sets],ideal_hsort_times, label="Best Case Heuristic")
     plt.ylabel('Time (ms)')
     plt.xlabel("Number of Unsorted Elements")
@@ -69,6 +86,6 @@ def main():
             print("Could not save to %s" % (OUTPUT_FILE))
             OUTPUT_FILE = input("Enter new File Name:")
 
-    print("Figure for Worst Case, Best Case, and Quicksort saved to %s." % (OUTPUT_FILE))
+    print("Figure for Best Case and Quicksort saved to %s." % (OUTPUT_FILE))
 if __name__ == "__main__":
     main()

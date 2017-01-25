@@ -6,6 +6,7 @@ def ins_sort(k):
             j=j-1 #take k[j] all the way left to the place where it has a smaller/no value to its left.
     return k
 
+# heuristic sort generator accepts a lambda parameter that needs to return a value between 0 & .99
 def heuristic_sort_generator(heuristic):
 
     def sorter(arr):
