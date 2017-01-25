@@ -7,6 +7,11 @@ import matplotlib.pyplot as plt
 from heuristic_sort import heuristic_sort_generator
 from heuristics.ideal_heuristic import get_ideal
 
+#Global Constants
+NUM_DATA_SETS = 1000
+OUTPUT_FILE = "../img/Proof_Of_Concept.png"
+
+#For Compatibility w/ old versions of numpy
 xrange = range
 
 #Section quicksort
@@ -40,9 +45,8 @@ def time_ideal_hsort(dataset):
     return results
 
 
-NUM_DATA_SETS = 1000
 
-if __name__ == "__main__":
+def main():
     d_sets = [np.random.normal(0,50,x) for x in np.arange(50,NUM_DATA_SETS,50)]
 
     nlogn_times = time_for_algo(quicksort,d_sets)
@@ -57,5 +61,14 @@ if __name__ == "__main__":
     plt.ylabel('Time (ms)')
     plt.xlabel("Number of Unsorted Elements")
     plt.legend()
-    print("Graph Complete...")
-    plt.show()
+    while(True):
+        try:
+            plt.savefig(OUTPUT_FILE)
+            break;
+        except:
+            print("Could not save to %s" % (OUTPUT_FILE))
+            OUTPUT_FILE = input("Enter new File Name:")
+
+    print("Figure for Worst Case, Best Case, and Quicksort saved to %s." % (OUTPUT_FILE))
+if __name__ == "__main__":
+    main()
